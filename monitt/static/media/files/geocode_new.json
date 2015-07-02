@@ -1,0 +1,29 @@
+
+{	
+    "UserID" : "demo",
+    "Email" : "meeeeejin@gmail.com",
+    "TestcaseName" : "GET geocode",
+    "Scheduling" : "NONE",
+    "Notification" : {
+        "Type" : "STATUS_CHANGE",
+        "FailCount" : "NONE"
+    },
+    "Req" : {
+        "Method" : "GET",
+        "URL" : "http://maps.googleapis.com/maps/api/geocode/json",
+        "URLParameter" : {
+            "address" : "1600 Amphitheatre Parkway, Mountain View, CA",
+            "sensor" : "true_or_false"
+        },
+        "Header" : {
+            "content-type" : "application/x-www-form-urlencoded"
+        },
+        "Body" : "NONE"
+    },
+    "ExpectedRes" : {
+        "ReturnCode" : "200",
+        "ResponseTime" : "1000",
+        "Header" : "NONE",
+        "Body" : "NONE"
+    }
+}

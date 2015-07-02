@@ -1,0 +1,45 @@
+{% load endless %}
+
+<div>
+    
+{% paginate testslist %}
+            {% for file in testslist %}
+                {% for filename in filenamelist %}
+                    {% if forloop.counter == forloop.parentloop.counter %}
+                        <div class="bs-callout bs-callout-danger" id="callout-btndropdown-dependency">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter }}" class="collapsed">
+                                <div class="row alltestinfo" style="position: relative">
+                                    <div class="col-sm-9">
+                                      <h4>{{ filename }}</h4>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <a class="runtest" href="/dashboard/run_test/?filename={{ filename }}" onclick="return confirm('Are you sure you want to run this test?');">
+                                            <i class="fa fa-play" style="color: #5cb85c;"></i>&nbsp; run
+                                    </div>
+                                    <div class="col-sm-1">
+                                      <i class="fa fa-stop"></i>&nbsp; stop
+                                    </div>
+                                    <div class="col-sm-1">
+                                      <label class="trash">
+                                        <a class="delete" href="/dashboard/delete_file/?filename={{ filename }}" onclick="return confirm('Are you sure you want to delete this file?');">
+                                          <i class="glyphicon glyphicon-trash"></i>
+                                        </a>
+                                      </label>
+                                    </div>
+                                </div>
+                            </a>
+                            
+                            <div id="collapse{{ forloop.counter }}" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <pre>
+                                        {{ file }}
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+            {% show_more "Show More" "Loding" %}
+    
+</div>

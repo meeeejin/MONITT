@@ -1,0 +1,193 @@
+{% extends 'errors.html' %}
+
+
+{% block search %}
+
+{% if error == 1 %}
+  <div style="text-align: center;margin-bottom: 200px;margin-top: 150px">
+    <h3>
+      <i class="fa fa-warning" style="color: #f0ad4e"></i>&nbsp; No results found for <font style="font-weight: bold">&quot;{{ query }}&quot;</font>. 
+    </h3><br/>
+    <h4>
+      Sorry, but noting matched your search criteria. <br/><br/>Please try again with some different keywords.
+    </h4>
+  </div>
+{% else %}
+{% load endless %}
+    {% paginate testslist %}
+    {% for info in testslist %}
+    <div class="bs-callout bs-callout-danger" id="callout-btndropdown-dependency">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ info.3 }}" class="collapsed">
+        <div class="row alltestinfo" style="position: relative">
+          <div class="col-sm-6">
+            <h4>{{ info.0 }}</h4>
+            <p>{{ info.1 }}&nbsp; {{ info.2 }}</p>
+          </div>
+          <div class="col-sm-1">
+            <label class="finalresult">{{ info.15 }}</label>    
+          </div>
+          <div class="col-sm-1">
+            <label class="returncode">
+              <i class="fa fa-check"></i>&nbsp; {{ info.11 }}
+            </label>    
+          </div>
+          <div class="col-sm-1">
+            <label class="responsetime">
+              <i class="fa fa-clock-o"></i>&nbsp; {{ info.12 }} ms
+            </label>     
+          </div>
+          <div class="col-sm-2">
+            <label class="finished_time">{{ info.17 }}</label>
+          </div>
+          <div class="col-sm-1">
+            <label class="trash">
+              <a class="delete" href="/dashboard/delete_test/?test_id={{ info.3 }}" onclick="return confirm('Are you sure you want to delete this test?');">
+                <i class="glyphicon glyphicon-trash"></i>
+              </a>
+            </label>
+          </div>
+        </div>
+      </a>
+      
+        <div id="collapse{{ info.3 }}" class="panel-collapse collapse">
+          <div class="panel-body">
+              <ul class="nav nav-tabs">
+                <li role="presentation"><a href="#request{{ info.3 }}" data-toggle="tab">Request</a></li>
+                <li role="presentation"><a href="#expectedresponse{{ info.3 }}" data-toggle="tab">Expected Response</a></li>
+                <li role="presentation" class="active"><a href="#actualresponse{{ info.3 }}" data-toggle="tab">Actual Response</a></li>
+                <li role="presentation"><a href="#result{{ info.3 }}" data-toggle="tab">Result</a></li>
+              </ul>
+              <br>
+              <div id="tab-content" class="tab-content">
+                
+                <div class="tab-pane" id="expectedresponse{{ info.3 }}">
+                  <div class="row-sm-6">
+                    <div class="col-sm-6">
+                      <label class="testinfo-title">RETURN CODE</label><br/>
+                        {{ info.7 }}<br/>
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="testinfo-title">RESPONSE TIME</label><br/>
+                        {{ info.8 }} ms<br/>
+                    </div>
+                  </div>
+                  <div class="row-sm-6">
+                    <div class="col-sm-6">
+                      <label class="testinfo-title">HEADER</label><br/>
+                      {% if info.9.items %}
+                        {% for item1 in info.9.items %}
+                            <label class="testinfo-content">{{ item1.0 }} :</label> {{ item1.1 }}<br/>
+                        {% endfor%}
+                      {% else %}
+                        {{ info.9 }}<br/>
+                      {% endif %}
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="testinfo-title">BODY</label><br/>
+                        {{ info.10 }}<br/>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="tab-pane active" id="actualresponse{{ info.3 }}">
+                  <div class="row-sm-6">
+                    <div class="col-sm-6">
+                      <label class="testinfo-title">RETURN CODE</label><br/>
+                        {{ info.11 }}<br/>
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="testinfo-title">RESPONSE TIME</label><br/>
+                        {{ info.12 }} ms<br/>
+                    </div>
+                  </div>
+                  <div class="row-sm-6">
+                    <div class="col-sm-6">
+                      <label class="testinfo-title">HEADER</label><br/>
+                      {% if info.13.items %}
+                        {% for item1 in info.13.items %}
+                            <label class="testinfo-content">{{ item1.0 }} :</label> {{ item1.1 }}<br/>
+                        {% endfor%}
+                      {% else %}
+                        {{ info.13 }}<br/>
+                      {% endif %}
+                    </div>
+                    <div class="col-sm-6">
+                      <label class="testinfo-title">BODY</label><br/>
+                        {{ info.14 }}<br/>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="tab-pane" id="result{{ info.3 }}">
+                  <div class="row-sm-6">
+                    <div class="col-sm-12">
+                      <label class="testinfo-title">RESULT</label><br/>
+                      {{ info.15 }} <br/>
+                    </div>
+                  </div>
+                  <div class="row-sm-6">
+                    <div class="col-sm-12">
+                      <label class="testinfo-title">ERRORS</label><br/>
+                      {% for item1 in info.16 %}
+                        {% if forloop.counter|divisibleby:4 %}
+                          <label class="error-expected">{{ item1 }}</label><br/>
+                        {% elif forloop.counter0|divisibleby:4 %}
+                          <label class="error-title">{{ item1 }}</label>
+                        {% elif forloop.counter|divisibleby:2 %}
+                          <label class="error-actual">{{ item1 }}</label>
+                        {% else %}
+                          {{ item1 }}
+                        {% endif %}
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="tab-pane" id="request{{ info.3 }}">
+                    <div class="row-sm-6">
+                        <div class="col-sm-6">
+                          <label class="testinfo-title">HEADERS</label><br/>
+                           {% if info.5.items %}
+                            {% for item1 in info.5.items %}
+                              <label class="testinfo-content">{{ item1.0 }} :</label> {{ item1.1 }}<br/>
+                            {% endfor%}
+                          {% else %}
+                            {{ info.5 }}<br/>
+                          {% endif %}
+                        </div>
+                        <div class="col-sm-6">
+                          <label class="testinfo-title">URL PARAMETER</label><br/>
+                          {% if info.4.items %}
+                            {% for item1 in info.4.items %}
+                                <label class="testinfo-content">{{ item1.0 }} :</label> {{ item1.1 }}<br/>
+                            {% endfor%}
+                          {% else %}
+                            {{ info.4 }}<br/>
+                          {% endif %}
+                        </div>
+                    </div>
+                    <div class="row-sm-6">
+                        <div class="col-sm-12">
+                          <label class="testinfo-title">BODY</label>
+                            <p>{{ info.6 }}</p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+          </div>
+        </div>
+        
+      </div>
+    {% empty %}
+    <div style="text-align: center;margin-bottom: 200px;margin-top: 150px">
+    <h3>
+      <i class="fa fa-warning" style="color: #f0ad4e"></i>&nbsp; No results found for <font style="font-weight: bold">&quot;{{ query }}&quot;</font>. 
+    </h3><br/>
+    <h4>
+      Sorry, but noting matched your search criteria. <br/><br/>Please try again with some different keywords.
+    </h4>
+  </div>
+    {% endfor %}
+    {% show_more "Show More" "Loding" %}
+{% endif %}
+{% endblock %}

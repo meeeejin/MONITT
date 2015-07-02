@@ -1,0 +1,211 @@
+{% load endless %}
+
+<div>
+{% paginate testcaselist %}
+    {% for testcase in testcaselist %}
+    <div class="bs-callout bs-callout-warning" id="callout-btndropdown-dependency">
+        
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ forloop.counter0 }}" class="collapsed">
+          <div class="row alltestinfo" style="position: relative">
+            <div class="col-sm-6">
+              <h4>{{ testcase.1.0 }}</h4>
+              <p>{{ testcase.1.1 }}&nbsp; {{ testcase.1.2 }}</p>
+            </div>
+            <div class="col-sm-1">
+                <label class="notitype">{{ testcase.0.0 }}&nbsp;&nbsp;
+                {% if testcase.0.0 == "FAIL_COUNT" %}
+                  <i class="fa fa-caret-right" style="color:#424a5d"></i>&nbsp; {{ testcase.0.4 }}
+                {% endif %}
+                </label>
+            </div>
+            <div class="col-sm-2">
+                <label class="noticount" style="font-size: medium">
+                    <i class="fa fa-check" style="color: #5cb85c"></i>&nbsp;{{ testcase.0.2 }}
+                    &nbsp; &nbsp; &nbsp; 
+                    <i class="fa fa-times" style="color: #d9534f"></i>&nbsp;{{ testcase.0.1 }}
+                </label>    
+            </div>
+            <div class="col-sm-2">
+                <label class="finished_time">{{ testcase.0.5 }}</label>
+            </div>
+            <div class="col-sm-1">
+                <label class="trash">
+                    <a class="delete" href="/dashboard/delete_test/?test_id={{ testcase.1.18 }}" onclick="return confirm('Are you sure you want to delete this test suite?');">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </label>
+            </div>
+          </div>
+        </a>
+      
+        <div id="collapse{{ forloop.counter0 }}" class="panel-collapse collapse">
+          <div class="panel-body">
+            
+            {% for test in testcase %}
+                {% if forloop.counter != 1 %}
+                <div class="row">
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+    
+                        <div class="accordion-heading">
+                          <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse{{ test.3 }}">
+                            <div class="row">
+                                {% if test.15 == "FAIL" %}
+                                    <div class="col-sm-3" style="color: #d9534f;font-size: medium;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <i class="fa fa-times"></i>&nbsp; {{ test.15 }}
+                                    </div>
+                                {% elif test.15 == "SUCCESS" %}
+                                    <div class="col-sm-3" style="color: #5cb85c;font-size: medium;">
+                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                        <i class="fa fa-check"></i>&nbsp; {{ test.15 }}
+                                    </div>
+                                {% endif %}
+                                <div class="col-sm-9">
+                                    {{ test.17 }}
+                                </div>
+                            </div> 
+                          </a>
+                        </div>
+                        
+                        <div id="collapse{{ test.3 }}" class="accordion-body collapse">
+                          <div class="accordion-inner">
+                            <ul class="nav nav-tabs">
+                                <li role="presentation"><a href="#request{{ test.3 }}" data-toggle="tab">Request</a></li>
+                                <li role="presentation"><a href="#expectedresponse{{ test.3 }}" data-toggle="tab">Expected Response</a></li>
+                                <li role="presentation" class="active"><a href="#actualresponse{{ test.3 }}" data-toggle="tab">Actual Response</a></li>
+                                <li role="presentation"><a href="#result{{ test.3 }}" data-toggle="tab">Result</a></li>
+                            </ul>
+                            <br>
+                            <div id="tab-content" class="tab-content">
+                                
+                                <div class="tab-pane" id="expectedresponse{{ test.3 }}">
+                                    <div class="row-sm-6">
+                                        <div class="col-sm-6">
+                                          <label class="testinfo-title">RETURN CODE</label><br/>
+                                            {{ test.7 }}<br/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                          <label class="testinfo-title">RESPONSE TIME</label><br/>
+                                            {{ test.8 }} ms<br/>
+                                        </div>
+                                    </div>
+                                    <div class="row-sm-6">
+                                        <div class="col-sm-6">
+                                          <label class="testinfo-title">HEADER</label><br/>
+                                          {% if test.9.items %}
+                                            {% for item1 in test.9.items %}
+                                                <label class="testinfo-content">{{ item1.0 }} :</label> {{ item1.1 }}<br/>
+                                            {% endfor%}
+                                          {% else %}
+                                            {{ test.9 }}<br/>
+                                          {% endif %}
+                                        </div>
+                                        <div class="col-sm-6">
+                                          <label class="testinfo-title">BODY</label><br/>
+                                            {{ test.10 }}<br/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane active" id="actualresponse{{ test.3 }}">
+                                    <div class="row-sm-6">
+                                        <div class="col-sm-6">
+                                            <label class="testinfo-title">RETURN CODE</label><br/>
+                                                {{ test.11 }}<br/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="testinfo-title">RESPONSE TIME</label><br/>
+                                                {{ test.12 }} ms<br/>
+                                        </div>
+                                    </div>
+                                    <div class="row-sm-6">
+                                        <div class="col-sm-6">
+                                            <label class="testinfo-title">HEADER</label><br/>
+                                                {% if test.13.items %}
+                                                    {% for item1 in test.13.items %}
+                                                        <label class="testinfo-content">{{ item1.0 }} :</label> {{ item1.1 }}<br/>
+                                                    {% endfor%}
+                                                {% else %}
+                                                    {{ test.13 }}<br/>
+                                                {% endif %}
+                                        </div>
+                                        <div class="col-sm-6">
+                                          <label class="testinfo-title">BODY</label><br/>
+                                            {{ test.14 }}<br/>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane" id="result{{ test.3 }}">
+                                    <div class="row-sm-6">
+                                        <div class="col-sm-12">
+                                            <label class="testinfo-title">RESULT</label><br/>
+                                                {{ test.15 }} <br/>
+                                        </div>
+                                    </div>
+                                    <div class="row-sm-6">
+                                        <div class="col-sm-12">
+                                            <label class="testinfo-title">ERRORS</label><br/>
+                                            {% for item1 in test.16 %}
+                                                {% if forloop.counter|divisibleby:4 %}
+                                                    <label class="error-expected">{{ item1 }}</label><br/>
+                                                {% elif forloop.counter0|divisibleby:4 %}
+                                                    <label class="error-title">{{ item1 }}</label>
+                                                {% elif forloop.counter|divisibleby:2 %}
+                                                    <label class="error-actual">{{ item1 }}</label>
+                                                {% else %}
+                                                  {{ item1 }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-pane" id="request{{ test.3 }}">
+                                    <div class="row-sm-6">
+                                        <div class="col-sm-6">
+                                          <label class="testinfo-title">HEADERS</label><br/>
+                                            {% if test.5.items %}
+                                                {% for item1 in test.5.items %}
+                                                    <label class="testinfo-content">{{ item1.0 }} :</label> {{ item1.1 }}<br/>
+                                                {% endfor%}
+                                            {% else %}
+                                                {{ test.5 }}<br/>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="testinfo-title">URL PARAMETER</label><br/>
+                                            {% if test.4.items %}
+                                                {% for item1 in test.4.items %}
+                                                    <label class="testinfo-content">{{ item1.0 }} :</label> {{ item1.1 }}<br/>
+                                                {% endfor%}
+                                            {% else %}
+                                                {{ test.4 }}<br/>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row-sm-6">
+                                        <div class="col-sm-12">
+                                          <label class="testinfo-title">BODY</label>
+                                            <p>{{ test.6 }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                             </div>
+                          </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        
+          </div>
+        </div>
+    </div>
+  {% endfor %}
+  {% show_more "Show More" "Loding" %}
+  </div>

@@ -1,0 +1,31 @@
+
+{
+    "UserID" : "demo",
+    "Email" : "meeeeejin@gmail.com",
+    "TestcaseName" : "GET PUSH endpoints",
+    "Scheduling" : {
+        "Periodically" : [
+            {
+                "Unit" : "MINUTES",
+                "Frequency" : "*"
+            }
+        ]
+    },
+    "Notification" : "NONE",
+    "Req" : {
+        "Method" : "GET",
+        "URL" : "http://pushapi-dev.skplanetx.com/push/v3/endpoints/cixukct1fh3uycbograo",
+        "URLParameter" : "NONE",
+        "Header" : {
+            "content-type" : "application/x-www-form-urlencoded",
+            "authorization" : "Basic M2M3NWQ5NTA3MzMyNDI0Njk3ZjY1NmEwZmZlYjk0YmE6OWQyMDZkZmIyM2ZhNGYxZDkyYWZlNzc4NjkwZjA2NDY="
+        },
+        "Body" : "NONE"
+    },
+    "ExpectedRes" : {
+        "ReturnCode" : "200",
+        "ResponseTime" : "3000",
+        "Header" : "NONE",
+        "Body" : "NONE"
+    }
+}

@@ -1,0 +1,32 @@
+{% extends 'dashboard.html' %}
+
+{% block createtest_active %}
+    <a class="active" href='{% url "create_test" %}'>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-sm-9 col-md-12 main">
+      <h1 class="page-header">Create Test</h1>
+        <form id="testForm" method="post" class="form-horizontal" action='{% url "create_test" %}' enctype="multipart/form-data">{% csrf_token %}
+            <div class="createform col-sm-12" style="text-align: center;margin-bottom: 200px;margin-top: 100px;">
+                <label for="testfile">
+                    <h4>If you want to <font color="#d9534f">create a test</font>,
+                    <br/><br/>
+                    <font style="font-weight: bold">Upload</font> your test file <font style="text-decoration: underline">right now</font>!
+                    <br/><br/>
+                    <i class="fa fa-hand-o-down" style="font-size: large"></i><br/><br/></h4>
+                </label>
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
+                        <span class="btn btn-default btn-file"><span class="fileupload-new">Select file</span>
+                        <span class="fileupload-exists">Change</span>         <input id="testfile" name="testfile" type="file" /></span>
+                        <span class="fileupload-preview"></span>
+                        <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none">x</a>
+                        &nbsp; &nbsp; <button type="submit" class="btn btn-warning">Create Test</button>
+                    </div>
+                    
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

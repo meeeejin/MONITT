@@ -1,0 +1,41 @@
+
+{	
+    "UserID" : "demo",
+    "Email" : "meeeeejin@gmail.com",
+    "TestcaseName" : "GET PUSH group lists",
+    "Scheduling" : "NONE",
+    "Notification" : {
+        "Type" : "STATUS_CHANGE"
+    },
+    "Req" : {
+        "Method" : "GET",
+        "URL" : "http://pushapi-dev.skplanetx.com/push/v3/groups",
+        "URLParameter" : "NONE",
+        "Header" : {
+            "content-type" : "application/x-www-form-urlencoded",
+            "authorization" : "Basic YWMxODVhZjk0YjJmNDUwY2I0MDBmOTdhZDMxNTliNzg6NmVlNWZlZTlmNjZlNGMyODkyOWIyMTBmODUyMDI2ZmM="
+        },
+        "Body" : "NONE"
+    },
+    "ExpectedRes" : {
+        "ReturnCode" : "200",
+        "ResponseTime" : "3000",
+        "Header" : {
+            "content-language" : "ko",
+            "content-encoding" : "gzip"
+        },
+        "Body" : {
+            "Regex" : {
+                "Equal" : {
+                    "group_id" : "^[a-zA-Z0-9]+$",
+                    "size" : "^[a-z]+$"
+                }
+            },
+            "Value" : {
+                "NotEqual" : {
+                    "group_name" : "000"
+                }
+            }
+        }
+    }
+}

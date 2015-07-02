@@ -1,0 +1,51 @@
+.navbar .nav > li > a {
+    color: #2e2e2e;
+    line-height: 100px;
+    height: 100px;
+    padding-top: 0;
+    -o-transition:color .4s ease-out;
+    -ms-transition:color .4s ease-out;
+    -moz-transition:color .4s ease-out;
+    -webkit-transition:color .4s ease-out;
+    transition:color .4s ease-out;
+}
+
+.navbar .nav > li > a:hover,
+.footer > p > span > a:hover,
+.sign-container > form > p > a:hover {
+    color: #e51937;
+    text-decoration: none;
+}
+
+.footer {
+    color: #858585;
+}
+
+.footer > p > span > a {
+    color: #858585;
+    -o-transition:color .4s ease-out;
+    -ms-transition:color .4s ease-out;
+    -moz-transition:color .4s ease-out;
+    -webkit-transition:color .4s ease-out;
+    transition:color .4s ease-out;
+}
+
+.jumbotron > .container {
+    margin-top: 100px;
+    margin-bottom:40px;
+    height: 400px;
+    text-align: center;
+}
+
+.sign-container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.sign-container > form > p > a {
+    -o-transition:color .4s ease-out;
+    -ms-transition:color .4s ease-out;
+    -moz-transition:color .4s ease-out;
+    -webkit-transition:color .4s ease-out;
+    transition:color .4s ease-out;
+}

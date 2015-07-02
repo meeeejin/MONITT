@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="sign-container">
+      <form class="form-signin" method="post" action="/signup/">{% csrf_token %}
+        <h2 class="form-signin-heading">Sign Up</h2>
+        <p>Already have an account? <a href='{% url "signin" %}'>Sign In</a>.</p></br>
+        {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                {{ field }}
+            </div>
+        {% endfor %}
+       <!-- <label for="id_username" class="sr-only">Username</label>
+        <input type="text" name="username" id="id_username" class="form-control" placeholder="Username" required>
+        <label for="id_email" class="sr-only">Email address</label>
+        <input type="email" name="email" id="id_email" class="form-control" placeholder="Email address" required>
+        <label for="id_password" class="sr-only">Password</label>
+        <input type="password" name="password" id="id_password" class="form-control" placeholder="Password" required>-->
+            
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Sign Up</button>
+      </form>
+
+</div> <!-- /container -->
+{% endblock %}

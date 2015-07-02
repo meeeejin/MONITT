@@ -1,0 +1,36 @@
+
+{	
+	"UserID" : "demo",
+	"Email" : "meeeeejin@gmail.com",
+    "TestcaseName" : "sendings API",
+    "Scheduling" : {
+    	"Once" : {
+    		"Unit" : "SECONDS",
+    		"Frequency" : "10",
+    		"Times" : "3"
+    	}
+    },
+    "Notification" : {
+    	"Type" : "FAIL_COUNT",
+    	"FailCount" : "2"
+    },
+	"Req" : {
+		"Method" : "GET",
+        "URL" : "http://pushapi-dev.skplanetx.com/push/v3/groups",
+		"URLParameter" : "NONE",
+		"Header" : {
+			"content-type" : "application/x-www-form-urlencoded",
+			"authorization" : "Basic YWMxODVhZjk0YjJmNDUwY2I0MDBmOTdhZDMxNTliNzg6NmVlNWZlZTlmNjZlNGMyODkyOWIyMTBmODUyMDI2ZmM="
+		},
+		"Body" : "NONE"
+	},
+	"ExpectedRes" : {
+		"ReturnCode" : "200",
+		"ResponseTime" : "3000",
+		"Header" : {
+			"content-language" : "eng",
+			"content-encoding" : "gzip"
+		},
+		"Body" : "NONE"
+	}
+}

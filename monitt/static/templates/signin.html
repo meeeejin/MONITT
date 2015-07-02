@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="sign-container">
+      <form class="form-signin" method="post" action="/auth/">{% csrf_token %}
+        <h2 class="form-signin-heading">Sign In</h2>
+        <p>Don't have an account? <a href='{% url "signup" %}'>Sign Up</a>.</p></br>
+        <label for="inputText" class="sr-only">Username</label>
+        <input type="text" name="username" id="inputText" class="form-control" placeholder="Username" required>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+            
+        <button class="btn btn-lg btn-danger btn-block" type="submit">Sign In</button>
+      </form>
+
+</div> <!-- /container -->
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'dashboard.html' %}
+
+{% block guide_active %}
+    <a class="active" href='{% url "guide" %}'>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-9 col-md-12 main">
+    <h1 class="page-header">Guide</h1>
+  </div>
+</div>
+{% endblock %}

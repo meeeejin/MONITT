@@ -1,0 +1,13 @@
+{% extends 'dashboard.html' %}
+
+{% block settings_active %}
+    <a class="active" href='{% url "settings" %}'>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-9 col-md-12 main">
+    <h1 class="page-header">Settings</h1>
+  </div>
+</div>
+{% endblock %}
